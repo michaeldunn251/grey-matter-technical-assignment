@@ -1,0 +1,14 @@
+th, tr {
+    text-align: center;
+}
+
+#recently-searched-container {
+    width: 40%;
+    padding: 2rem;
+}
+
+.url-container {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

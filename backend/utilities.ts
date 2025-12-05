@@ -66,7 +66,7 @@ export function validateUrl(userInputUrl: string): boolean {
 export async function getHtmlPageContent(validUrl: string): Promise<PageData> {
 
     // Make a GET request to obtain the page's HTML
-    let htmlResponse: Response = await fetch(validUrl, {
+    let htmlResponse = await fetch(validUrl, {
         method: "GET"
     })
 
