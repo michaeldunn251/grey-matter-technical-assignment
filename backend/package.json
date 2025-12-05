@@ -1,0 +1,28 @@
+{
+  "name": "grey-matter-technical-assignment",
+  "version": "1.0.0",
+  "description": "Grey Matter Technical Assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaeldunn251/grey-matter-technical-assignment.git"
+  },
+  "author": "Michael Dunn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaeldunn251/grey-matter-technical-assignment/issues"
+  },
+  "homepage": "https://github.com/michaeldunn251/grey-matter-technical-assignment#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "tsx": "^4.21.0"
+  },
+  "type": "module"
+}
