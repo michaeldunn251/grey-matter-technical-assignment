@@ -9,13 +9,13 @@ export function Home({backendUrl}) {
         };
 
         // Make a POST request to the /api/parseUrl endpoint with the request body
-        const response = await fetch(`${backendUrl}/api/parseUrl`, {
+        const request = await fetch(`${backendUrl}/api/parseUrl`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(requestBody)
         }); 
 
-        // DEV
+        let response = await request.json()
         console.log(response)
     }
 
