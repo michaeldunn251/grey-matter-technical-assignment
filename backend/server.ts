@@ -46,6 +46,27 @@ app.get("/", (req: Request, res: Response) => {
 app.post("/api/parseUrl", (req: Request, res: Response) => {
     console.log(req.body)
     res.send({"response": req.body?.url});
+
+    // Request validation, if there's NOT a url within the request body, return a 400 (via falsy value)
+    if (!req.body?.url) {
+        res.status(400).send({"error": "URL missing from request body."});
+    }
+
+    // Otherwise, if there IS a URL in the request body
+    else {
+        
+        // TODO: current URL validation requires scheme (https://)
+        // Validate the URL that the user submitted
+        try {
+            let userInputUrl = new URL(req.body.url);
+            // userInputUrl.href
+        } 
+        
+        // In the case that the submitted value isn't a URL, catch the error
+        catch (error) {
+            res.status(400).send({"error": "Invalid URL"});
+        }
+    }
 })
 
 app.listen(port, () => {

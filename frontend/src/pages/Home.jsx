@@ -21,8 +21,8 @@ export function Home({backendUrl}) {
 
     return (
         <div>
-            <button onClick={submitUrl}>hi</button>
             <input type="text" id="urlEntry"></input>
+            <button onClick={submitUrl}>Fetch Page Insights</button>
         </div>
     )
 }
