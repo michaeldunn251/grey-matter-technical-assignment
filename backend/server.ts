@@ -54,7 +54,7 @@ app.post("/api/parseUrl", (req: Request, res: Response) => {
                 
                 // If the database insertion was unsuccessful, then errors will be falsy, so we should return errors to the frontend
                 if (status) {
-                    res.status(500).send({"errors": status});
+                    res.status(500).send({"error": status});
                 }
 
                 // Otherwise, upon successful database insertion, send the pageData to the frontend.

@@ -15,7 +15,6 @@ function App() {
 
   return (
     <>
-      <h1>Grey Matter Technical Assignment</h1>
       <Home 
         backendUrl={backendUrl} 
         recentlySearched={recentlySearched} 

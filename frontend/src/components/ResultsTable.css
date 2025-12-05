@@ -13,6 +13,10 @@ th, td {
     vertical-align: top;
 }
 
+td {
+    overflow-x: scroll;
+}
+
 .table-data-image {
     max-width: 100%;
 }
@@ -23,6 +27,11 @@ th, td {
     padding: revert;
 }
 
+.h1-tags ul {
+    padding-right: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 .url-container {
     overflow: hidden;
