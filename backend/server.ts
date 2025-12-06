@@ -39,15 +39,22 @@ app.post("/api/parseUrl", (req: Request, res: Response) => {
         }
 
         // Otherwise, if there IS a URL in the request body
-        if (!validateUrl(userInputUrl)) {
+        let validUrl = validateUrl(userInputUrl);
+        if (!validUrl) {
             res.status(400).send({"error": "Invalid URL."});
             return;
         }
 
         // Make a GET request for HTML page content
-        let htmlPageContent = getHtmlPageContent(userInputUrl);
+        let htmlPageContent = getHtmlPageContent(validUrl);
         htmlPageContent.then((htmlPageData) => {
             
+            // After the fetch attempt, if no data is recieved, return an error.
+            if (!htmlPageData) {
+                res.status(400).send({"error": "Unable to parse website, please check the URL."});
+                return
+            }
+
             // Insert the page data into the database
             let dbAddSuccessStatus = addToDatabase(htmlPageData);
             dbAddSuccessStatus.then((status) => {

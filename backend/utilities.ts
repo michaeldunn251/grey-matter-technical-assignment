@@ -39,64 +39,77 @@ export interface PageData {
 }
 
 // MARK: Function for validating the input URLs, returns a boolean of the status
-export function validateUrl(userInputUrl: string): boolean {
+export function validateUrl(userInputUrl: string): string | null {
     
     try {
+
+        // Allow the user to input a URL without protocol, default to https://
+        if (!userInputUrl.startsWith("http://") && !userInputUrl.startsWith("https://")) {
+            userInputUrl = "https://" + userInputUrl;
+        }
 
         // Create a URL object, if the userInputUrl is invalid, it will throw an error.
         let urlObject = new URL(userInputUrl);
 
         // If the URL object has an invalid protocol, then return false
         if (urlObject.protocol == "https:" || urlObject.protocol == "http:") {
-            return true;
+            return urlObject.href;
         }
         else {
-            return false;
+            return null;
         }
     } 
     
     // In the case that the submitted value isn't a URL, catch the error and return false
     catch (error) {
-        return false
+        return null
     }
 }
 
 // MARK: Function for obtaining the HTML page data (title, meta description, and headers)
-export async function getHtmlPageContent(validUrl: string): Promise<PageData> {
+export async function getHtmlPageContent(validUrl: string): Promise<PageData | null> {
 
-    // Make a GET request to obtain the page's HTML
-    let htmlResponse = await fetch(validUrl, {
-        method: "GET"
-    })
+    try {
+        // Make a GET request to obtain the page's HTML
+        let htmlResponse = await fetch(validUrl, {
+            method: "GET"
+        })
 
-    // Wait for the Promise to resolve, then load the text of the fetched page into a Cheerio object
-    let htmlContent: string = await htmlResponse.text();
-    let loadedDocument = cheerio.load(htmlContent)
+        // Wait for the Promise to resolve, then load the text of the fetched page into a Cheerio object
+        let htmlContent: string = await htmlResponse.text();
+        let loadedDocument = cheerio.load(htmlContent)
+        
+        // Get the page title from the title tag, and extract the text
+        let pageTitle: string = loadedDocument("title").text();
+
+        // Find the meta description in the meta[name="description"] tag and exract it's content
+        let metaDescription: string = loadedDocument("meta[name='description']").attr()?.content || 
+                                        loadedDocument("meta[name='Description']").attr()?.content ||
+                                        loadedDocument("meta[itemprop='description']").attr()?.content || "";
+
+
+        // Find the total number of H1 headers, and traverse through each one
+        let numHeaders: number = loadedDocument("h1").length;
+        let headerArray: string[] = [];
+        for (let i = 0; i < numHeaders; i++) {
+
+            // For each H1, extract the node's text and add it to the headerArray
+            let currentHeader: string = loadedDocument("h1").eq(i).text();
+            headerArray.push(currentHeader)      
+        }
+
+        // NOTE: Mock screenshot API called here, which would return the pageScreenshot
+        let pageScreenshot: string = "https://dummyimage.com/800x600/000/fff.png&text=Screenshot";
+
+        // Finally, return the url (which was the input valid URL), pageTitle, metaDescription, headerArray, and screenshotUrl
+        return {url: validUrl, pageTitle, metaDescription, headerArray, screenshotUrl: pageScreenshot}
     
-    // Get the page title from the title tag, and extract the text
-    let pageTitle: string = loadedDocument("title").text();
-
-    // Find the meta description in the meta[name="description"] tag and exract it's content
-    let metaDescription: string = loadedDocument("meta[name='description']").attr()?.content || 
-                                    loadedDocument("meta[name='Description']").attr()?.content ||
-                                    loadedDocument("meta[itemprop='description']").attr()?.content || "";
-
-
-    // Find the total number of H1 headers, and traverse through each one
-    let numHeaders: number = loadedDocument("h1").length;
-    let headerArray: string[] = [];
-    for (let i = 0; i < numHeaders; i++) {
-
-        // For each H1, extract the node's text and add it to the headerArray
-        let currentHeader: string = loadedDocument("h1").eq(i).text();
-        headerArray.push(currentHeader)      
     }
-
-    // NOTE: Mock screenshot API called here, which would return the pageScreenshot
-    let pageScreenshot: string = "https://dummyimage.com/800x600/000/fff.png&text=Screenshot";
-
-    // Finally, return the url (which was the input valid URL), pageTitle, metaDescription, headerArray, and screenshotUrl
-    return {url: validUrl, pageTitle, metaDescription, headerArray, screenshotUrl: pageScreenshot}
+    
+    // return null for no page data retrieved
+    catch (error) {
+        return null
+    }
 }
 
 // MARK: Function for adding pageData to the SupaBase 'page_insights' table
