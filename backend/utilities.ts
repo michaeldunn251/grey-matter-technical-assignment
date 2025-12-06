@@ -77,7 +77,10 @@ export async function getHtmlPageContent(validUrl: string): Promise<PageData> {
     let pageTitle: string = loadedDocument("title").text();
 
     // Find the meta description in the meta[name="description"] tag and exract it's content
-    let metaDescription: string = loadedDocument("meta[name='description']").attr()?.content || "";
+    let metaDescription: string = loadedDocument("meta[name='description']").attr()?.content || 
+                                    loadedDocument("meta[name='Description']").attr()?.content ||
+                                    loadedDocument("meta[itemprop='description']").attr()?.content || "";
+
 
     // Find the total number of H1 headers, and traverse through each one
     let numHeaders: number = loadedDocument("h1").length;

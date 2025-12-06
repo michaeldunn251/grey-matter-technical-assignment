@@ -29,7 +29,6 @@ td {
 
 .h1-tags ul {
     padding-right: 1rem;
-    overflow: hidden;
     text-overflow: ellipsis;
 }
 
