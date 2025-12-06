@@ -45,7 +45,6 @@ export function validateUrl(userInputUrl: string): boolean {
 
         // Create a URL object, if the userInputUrl is invalid, it will throw an error.
         let urlObject = new URL(userInputUrl);
-        console.log(urlObject)
 
         // If the URL object has an invalid protocol, then return false
         if (urlObject.protocol == "https:" || urlObject.protocol == "http:") {
