@@ -1,7 +1,5 @@
-:root {
-    background-color: #c9c1b1;
-}
+@import url('https://fonts.googleapis.com/css2?family=TASA+Orbiter:wght@400..800&display=swap');
 
-h1 {
-  
+:root {
+    font-family: "TASA Orbiter", sans-serif;
 }

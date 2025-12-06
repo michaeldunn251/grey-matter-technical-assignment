@@ -7,8 +7,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #eee9df;
-    border-radius: 1rem;
+    background-color: #ced4da;
+    border-radius: 0.5rem;
 }
 
 h1 {
@@ -20,12 +20,11 @@ h1 {
     width: 40%;
     padding: 1rem;
     font-size: 1.25rem;
-    border: 1px solid #ffb162;
-    font-family: "Inconsolata", monospace;
+    border: 1px solid #adb5bd;
 }
 
 #urlEntry:focus {
-    border: 1px solid #A35139;
+    border: 1px solid #495057;
     outline: none;
 }
 
@@ -36,13 +35,13 @@ h1 {
     border: none;
     margin: 1rem;
     font-size: 1rem;
-    background-color: #2c3b4d;
+    background-color: #495057;
     color: #eee9df;
     font-weight: 700;
 }
 
 #fetch-button:hover {
-    background-color: #98acd8;
+    background-color: #6c757d;
 }
 
 #fetch-button:active {
