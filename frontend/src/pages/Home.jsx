@@ -58,7 +58,7 @@ export function Home({backendUrl, recentlySearched, setRecentlySearched, recentR
     return (
         <div id="home-container">
             <h1>Grey Matter Technical Assignment</h1>
-            <input type="text" id="urlEntry"></input>
+            <input type="text" id="urlEntry" placeholder="Enter URL to get page insights"></input>
             <div id="error-container">
                 <p id="error-message"></p>
             </div>
