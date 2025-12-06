@@ -6,9 +6,9 @@ export function RecentSearches({recentlySearched}) {
         <div id="recently-searched-container">
             <table>
                 <thead>
-                    <th>
-                        <tr>Recently Searched</tr>
-                    </th>
+                    <tr>
+                        <th>Recently Searched</th>
+                    </tr>
                 </thead>
                 <tbody>
                     {recentlySearched.length > 0 ? (recentlySearched.map((search, index) => {
